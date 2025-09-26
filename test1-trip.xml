@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-03-12 20:42:44 by Eclipse SUMO GUI Version 1.22.0
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="E:\学习\毕设\SUMO\net1.net.xml"/>
+        <route-files value="E:\学习\毕设\SUMO\rou1.rou.xml"/>
+    </input>
+
+    <output>
+        <summary-output value="E:\学习\毕设\SUMO\test1.summary.xml"/>
+        <tripinfo-output value="E:\学习\毕设\SUMO\test1-trip.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="400"/>
+        <step-length value="0.05"/>
+    </time>
+
+    <processing>
+        <threads value="8"/>
+        <lateral-resolution value="0.02"/>
+        <collision.action value="warn"/>
+    </processing>
+
+    <traci_server>
+        <remote-port value="7870"/>
+    </traci_server>
+
+</sumoConfiguration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="t13.0" depart="0.05" departLane="E0_0" departPos="4.60" departPosLat="0.00" departSpeed="10.00" departDelay="0.05" arrival="28.15" arrivalLane="-E3_0" arrivalPos="84.00" arrivalPosLat="0.00" arrivalSpeed="14.96" duration="28.10" routeLength="389.08" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="1.76" rerouteNo="0" devices="tripinfo_t13.0" vType="HDV" speedFactor="1.41" vaporized=""/>
+</tripinfos>

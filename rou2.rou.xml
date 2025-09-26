@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<routes>
+	<vType id="HDV" accel="3.0" decel="5.0" sigma="0.6" length="4.5" width="1.8" maxSpeed="15.00" minGap="2.5" tau="1.0" laneChangeModel="SL2015" speedDev="0.25" speedFactor="1.2"/>
+
+	<vType id="CAV" length="4.5" width="1.8" minGap="2.5" maxSpeed="20.00" accel="2.6" decel="4.5" sigma="0.5" tau="1.0"/>
+
+	<flow id="t11" color="1,1,0" begin="0" end="340" vehsPerHour="350" type="HDV" departLane="random" departSpeed="10.00" depart="now">
+	<route edges="E0 -E1"/>
+	</flow>
+	
+	<flow id="t12" color="1,1,0" begin="0" end="340" vehsPerHour="100" type="HDV" departLane="random" departSpeed="10.00" depart="now">
+	<route edges="E0 -E2"/>
+	</flow>
+	
+	<flow id="t13" color="1,1,0" begin="0" end="340" vehsPerHour="150" type="HDV" departLane="random" departSpeed="10.00" depart="now">
+	<route edges="E0 -E3"/>
+	</flow>
+
+	<route id="straight" edges="E0 -E1"/>
+	<route id="left" edges="E0 -E2"/>
+	<route id="right" edges="E0 -E3"/>
+	
+	<vehicle id="CAV0" type="CAV" route="left" begin="0" end="340" depart="20" color="1,0,0" departLane="random" departSpeed="15.00"/>
+    <vehicle id="CAV1" type="CAV" route="straight" begin="0" end="340" depart="20.25" color="1,0,0" departLane="random" departSpeed="15.00"/>
+    <vehicle id="CAV2" type="CAV" route="straight" begin="0" end="340" depart="20.55" color="1,0,0" departLane="random" departSpeed="15.00"/>
+    <vehicle id="CAV3" type="CAV" route="straight" begin="0" end="340" depart="20.85" color="1,0,0" departLane="random" departSpeed="15.00"/>
+    <vehicle id="CAV4" type="CAV" route="right" begin="0" end="340" depart="21.15" color="1,0,0" departLane="random" departSpeed="15.00"/>
+
+
+</routes>

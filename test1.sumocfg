@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net1.net.xml"/>
+        <route-files value="rou1.rou.xml"/>
+    </input>
+	
+    <output>
+        <summary-output value="test1.summary.xml" />
+        <tripinfo-output value="test1-tripinfo.xml"/>
+		<emission-output value="test1-emission.xml"/>
+    </output>
+	
+    <time>
+        <begin value="0"/>
+        <end value="400"/>
+    </time>
+	
+	<processing>
+		<lateral-resolution value="0.02"/>
+		<step-length value="0.05"/>
+		<threads value="8"/>
+	</processing>
+	
+	<simulation>
+		<collision.action value="warn"/>
+	</simulation>
+
+</configuration>
