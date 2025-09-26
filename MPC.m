@@ -2,57 +2,57 @@ yalmip('clear')
 clear all
 close all
 
-%% ²ÎÊı
-% »ù±¾²ÎÊı
-n = 5; % ³µÁ¾Êı
-T = 100; % ×Ü¹²µÄÄ£ÄâÊ±¼ä´ÎÊı
-delta_t = 0.05; % ²ÉÑùÊ±¼ä
-d_min = 0.5; % Á½³µ×îĞ¡¼ä¾à
-v_des = 15; % ÆÚÍû³µËÙ
-v_max = 20; % ×î´ó³µËÙ
-L = 10; % ·½¸ñ³¤¶È
-t = T * delta_t; % ×Ü¹²Ä£ÄâÊ±¼ä
-K = t / L; % ²½ÖèÒ»ÓÅ»¯²ÎÊı
+%% å‚æ•°
+% åŸºæœ¬å‚æ•°
+n = 5; % è½¦è¾†æ•°
+T = 100; % æ€»å…±çš„æ¨¡æ‹Ÿæ—¶é—´æ¬¡æ•°
+delta_t = 0.05; % é‡‡æ ·æ—¶é—´
+d_min = 0.5; % ä¸¤è½¦æœ€å°é—´è·
+v_des = 15; % æœŸæœ›è½¦é€Ÿ
+v_max = 20; % æœ€å¤§è½¦é€Ÿ
+L = 10; % æ–¹æ ¼é•¿åº¦
+t = T * delta_t; % æ€»å…±æ¨¡æ‹Ÿæ—¶é—´
+K = t / L; % æ­¥éª¤ä¸€ä¼˜åŒ–å‚æ•°
 
-% µÀÂ·¼¸ºÎ²ÎÊı
-noLane = 3; % ³µµÀÊı
-laneWidth = 3.75; % ÖĞ¹ú¸ßËÙ¹«Â·¿í¶È¹æ·¶
+% é“è·¯å‡ ä½•å‚æ•°
+noLane = 3; % è½¦é“æ•°
+laneWidth = 3.75; % ä¸­å›½é«˜é€Ÿå…¬è·¯å®½åº¦è§„èŒƒ
 road_right = 0;
 road_left = road_right + noLane * laneWidth;
 
-% ÏŞÖÆÌõ¼ş
-steer_limit = 0.3; % ×ª½ÇÏŞÖÆ£¬»¡¶ÈÖÆ
-accel_limit = 4; % ¼ÓËÙ¶ÈÏŞÖÆ£¬µ¥Î»Ã×Ã¿¶ş´Î·½Ãë
-change_steer_limit = 0.2; % ×ª½Ç±ä»¯ÏŞÖÆ
-change_accel_limit = 0.3; % ¼Ó¼ÓËÙ¶ÈÏŞÖÆ
+% é™åˆ¶æ¡ä»¶
+steer_limit = 0.3; % è½¬è§’é™åˆ¶ï¼Œå¼§åº¦åˆ¶
+accel_limit = 4; % åŠ é€Ÿåº¦é™åˆ¶ï¼Œå•ä½ç±³æ¯äºŒæ¬¡æ–¹ç§’
+change_steer_limit = 0.2; % è½¬è§’å˜åŒ–é™åˆ¶
+change_accel_limit = 0.3; % åŠ åŠ é€Ÿåº¦é™åˆ¶
 
-% ³µÁ¾²ÎÊı
-l_f = 4.47/2; % ³µÉíÇ°°ë²¿·Ö
-l_r = 4.47/2; % ³µÉíºó°ë²¿·Ö
-len = l_f + l_r; % ³µÉí³¤¶È
-wid = 1.82; % ³µÉí¿í¶È
+% è½¦è¾†å‚æ•°
+l_f = 4.47/2; % è½¦èº«å‰åŠéƒ¨åˆ†
+l_r = 4.47/2; % è½¦èº«ååŠéƒ¨åˆ†
+len = l_f + l_r; % è½¦èº«é•¿åº¦
+wid = 1.82; % è½¦èº«å®½åº¦
 
-% ¸÷³µ³õÊ¼×´Ì¬
+% å„è½¦åˆå§‹çŠ¶æ€
 state_init = zeros(4, 1, n);
 state_fin = zeros(4, 1, n);
 state_init(1, :, :) = [5; 15; 45; 35; 15]';
 state_init(2, :, :) = [5; 1; 5; 9; 9]';
 state_init(4, :, :) = [17; 14; 14; 13; 15]';
 
-%% ²½ÖèÒ»£ºÍ¨¹ı³õÊ¼×´Ì¬×îÓÅ»¯×îÖÕ×´Ì¬
-% ½«³õÊ¼×´Ì¬×ª»¯ÎªÍø¸ñ×´Êı¾İ
+%% æ­¥éª¤ä¸€ï¼šé€šè¿‡åˆå§‹çŠ¶æ€æœ€ä¼˜åŒ–æœ€ç»ˆçŠ¶æ€
+% å°†åˆå§‹çŠ¶æ€è½¬åŒ–ä¸ºç½‘æ ¼çŠ¶æ•°æ®
 x_init = floor(state_init(1, 1, :) / L) + 1;
 y_init = floor(state_init(2, 1, :) / laneWidth) + 1;
 v_init = state_init(4, 1, :);
 
-% ¶¨Òå¾ö²ß±äÁ¿
+% å®šä¹‰å†³ç­–å˜é‡
 x = intvar(1, n);
 y = intvar(1, n);
 x0 = intvar(1, 1, n);
 y0 = intvar(1, 1, n);
 v0 = sdpvar(1, 1, n);
 
-% ³Í·£²ÎÊı
+% æƒ©ç½šå‚æ•°
 theta1 = 0.5;
 theta2 = 1;
 
@@ -75,13 +75,13 @@ sequence = optimizer(constraints_1, objective_1, sdpsettings('solver','gurobi','
                      parameters_in_1, solutions_out_1);
 sol = sequence{x_init, y_init, v_init};
 
-% »ñÈ¡×îÖÕ×´Ì¬
+% è·å–æœ€ç»ˆçŠ¶æ€
 state_fin(1, :, :) = sol{1} * L - 0.5 * L + v_des * t;
 state_fin(2, :, :) = sol{2} * laneWidth - 0.5 * laneWidth;
 state_fin(4, :, :) = v_des;
 
-%% ²½Öè¶ş£ºÍ¨¹ıÆğÊ¼×´Ì¬ºÍ×îÖÕ×´Ì¬Éú³É²Î¿¼¹ì¼£
-% ²ÉÓÃÁù´ÎÇúÏßÄâºÏ
+%% æ­¥éª¤äºŒï¼šé€šè¿‡èµ·å§‹çŠ¶æ€å’Œæœ€ç»ˆçŠ¶æ€ç”Ÿæˆå‚è€ƒè½¨è¿¹
+% é‡‡ç”¨å…­æ¬¡æ›²çº¿æ‹Ÿåˆ
 A0 = [t^3, t^4, t^5;
       3 * t^2, 4 * t^3, 5 * t^4;
       6 * t, 12 * t^2, 20 * t^3];
@@ -105,7 +105,7 @@ for i = 1:n
     y_parameter(4:6, :, i) = (A_inv * B2)';
 end
 
-% ¹ì¼£Öµ
+% è½¨è¿¹å€¼
 x_value_ref = zeros(n, T);
 y_value_ref = zeros(n, T);
 
@@ -118,7 +118,7 @@ for i = 1:n
     end
 end
 
-% % »æÖÆ²Î¿¼¹ì¼£
+% % ç»˜åˆ¶å‚è€ƒè½¨è¿¹
 % figure;
 % hold on;
 % colors = lines(n);
@@ -134,7 +134,7 @@ end
 % title('Reference Trajectories');
 % legend('Vehicle 1', 'Vehicle 2', 'Vehicle 3', 'Vehicle 4', 'Vehicle 5', ...
 %        'Vehicle 6', 'Vehicle 7', 'Vehicle 8', 'Vehicle 9', 'Vehicle 10');
-% saveas(gcf, 'C:\Users\asus\Desktop\Ë¶Ê¿±ÏÉè\matlab´úÂë\²Î¿¼¹ì¼£.png');
+% saveas(gcf, 'C:\Users\asus\Desktop\ç¡•å£«æ¯•è®¾\matlabä»£ç \å‚è€ƒè½¨è¿¹.png');
 
 ref = cell(n, T);
 for i = 1:n
@@ -160,12 +160,12 @@ end
 
 
 
-%% ²½ÖèÈı£º³µÁ¾Ä£ĞÍ½¨Á¢
-% ¼ûkinematic_bicyle_model.m ÒÔ¼° rotation_translation.m
+%% æ­¥éª¤ä¸‰ï¼šè½¦è¾†æ¨¡å‹å»ºç«‹
+% è§kinematic_bicyle_model.m ä»¥åŠ rotation_translation.m
 
 
 
-%% ²½ÖèËÄ£ºMPC
+%% æ­¥éª¤å››ï¼šMPC
 N = 5; %MPC horizon
 
 u = cell(n, N);
@@ -303,7 +303,7 @@ solutions_out_2 = {[u{:}], [z{:}]};
 
 tmp = 2;
 
-% MPC¿ØÖÆÆ÷
+% MPCæ§åˆ¶å™¨
 options = sdpsettings('solver', 'fmincon', 'verbose', 2);
 controller = optimizer(constraints_2, objective_2, options, parameters_in_2, solutions_out_2);
 
@@ -325,7 +325,7 @@ end
 % ref_matrix = zeros(4, 6, 10);
 % ref_cell = cell(1, n);
 
-for k = 1:T - N - 1 % ÏÈ¼õÒ»¿´¿´½á¹û¶Ô²»¶Ô
+for k = 1:T - N - 1 % å…ˆå‡ä¸€çœ‹çœ‹ç»“æœå¯¹ä¸å¯¹
 %     if k > 1
 %         break
 %     end
@@ -391,7 +391,7 @@ for i = 1:n
 end
 tmp = 5;
 
-% »æÖÆMPC½á¹û
+% ç»˜åˆ¶MPCç»“æœ
 figure;
 hold on;
 colors = lines(n);
@@ -407,8 +407,8 @@ ylim([0 noLane * laneWidth]);
 title('MPC result');
 legend('Vehicle 1', 'Vehicle 2', 'Vehicle 3', 'Vehicle 4', 'Vehicle 5', ...
        'Vehicle 6', 'Vehicle 7', 'Vehicle 8', 'Vehicle 9', 'Vehicle 10');
-saveas(gcf, 'C:\Users\asus\Desktop\Ë¶Ê¿±ÏÉè\matlab´úÂë\MPC½á¹û.png');
+saveas(gcf, 'C:\Users\asus\Desktop\ç¡•å£«æ¯•è®¾\matlabä»£ç \MPCç»“æœ.png');
 tmp = 6;
 
 
-%% ²½ÖèÎå£º·ÂÕæ
+%% æ­¥éª¤äº”ï¼šä»¿çœŸ
